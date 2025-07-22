@@ -30,6 +30,7 @@ import { TopBar } from "~/components/TopBar";
 import { BottomBar } from "~/components/BottomBar";
 import { RightBar } from "~/components/RightBar";
 import { LeftBar } from "~/components/LeftBar";
+import { StoryGuideModal } from "~/components/StoryGuideModal";
 import { useRouter } from "next/router";
 import { LoginScreen, useLoginScreen } from "~/components/LoginScreen";
 import { useBoundStore } from "~/hooks/useBoundStore";
@@ -202,6 +203,7 @@ const TileTooltip = ({
   description,
   status,
   closeTooltip,
+  tile,
 }: {
   selectedTile: number | null;
   index: number;
@@ -210,6 +212,7 @@ const TileTooltip = ({
   description: string;
   status: TileStatus;
   closeTooltip: () => void;
+  tile: Tile;
 }) => {
   const tileTooltipRef = useRef<HTMLDivElement | null>(null);
 
@@ -276,9 +279,33 @@ const TileTooltip = ({
         >
           {description}
         </div>
+        {tile.type !== "treasure" && "gameType" in tile && "difficulty" in tile && (
+          <div className="flex items-center gap-2 text-sm opacity-80">
+            <span className="rounded bg-white/20 px-2 py-1 font-medium">
+              {tile.gameType?.replace("-", " ")}
+            </span>
+            <span className="rounded bg-white/20 px-2 py-1 font-medium">
+              {tile.difficulty?.replace("-", " ")}
+            </span>
+          </div>
+        )}
         {status === "ACTIVE" ? (
           <Link
-            href="/lesson"
+            href={(() => {
+              if (tile.type !== "treasure" && "gameType" in tile) {
+                switch (tile.gameType) {
+                  case "tic-tac-toe":
+                    return `/lesson?game=tic-tac-toe&unit=${unitNumber}&level=1`;
+                  case "bingo":
+                    return `/lesson?game=bingo&unit=${unitNumber}&level=2`;
+                  case "chutes-ladders":
+                    return `/lesson?game=chutes-ladders&unit=${unitNumber}&level=3`;
+                  default:
+                    return "/lesson";
+                }
+              }
+              return "/lesson";
+            })()}
             className={[
               "flex w-full items-center justify-center rounded-xl border-b-4 border-gray-200 bg-white p-3 uppercase",
               activeTextColor,
@@ -295,7 +322,21 @@ const TileTooltip = ({
           </button>
         ) : (
           <Link
-            href="/lesson"
+            href={(() => {
+              if (tile.type !== "treasure" && "gameType" in tile) {
+                switch (tile.gameType) {
+                  case "tic-tac-toe":
+                    return `/lesson?game=tic-tac-toe&unit=${unitNumber}&level=1`;
+                  case "bingo":
+                    return `/lesson?game=bingo&unit=${unitNumber}&level=2`;
+                  case "chutes-ladders":
+                    return `/lesson?game=chutes-ladders&unit=${unitNumber}&level=3`;
+                  default:
+                    return "/lesson";
+                }
+              }
+              return "/lesson";
+            })()}
             className="flex w-full items-center justify-center rounded-xl border-b-4 border-yellow-200 bg-white p-3 uppercase text-yellow-400"
           >
             Practice +5 XP
@@ -332,6 +373,8 @@ const UnitSection = ({ unit }: { unit: Unit }): JSX.Element => {
         description={unit.description}
         backgroundColor={unit.backgroundColor}
         borderColor={unit.borderColor}
+        story={unit.story}
+        mascot={unit.mascot}
       />
       <div className="relative mb-8 mt-[67px] flex max-w-2xl flex-col items-center gap-4">
         {unit.tiles.map((tile, i): JSX.Element => {
@@ -458,6 +501,7 @@ const UnitSection = ({ unit }: { unit: Unit }): JSX.Element => {
                 })()}
                 status={status}
                 closeTooltip={closeTooltip}
+                tile={tile}
               />
             </Fragment>
           );
@@ -611,37 +655,56 @@ const UnitHeader = ({
   description,
   backgroundColor,
   borderColor,
+  story,
+  mascot,
 }: {
   unitNumber: number;
   description: string;
   backgroundColor: `bg-${string}`;
   borderColor: `border-${string}`;
+  story: string;
+  mascot: string;
 }) => {
-  const language = useBoundStore((x) => x.language);
+  const [showStoryGuide, setShowStoryGuide] = useState(false);
+  
   return (
-    <article
-      className={["max-w-2xl text-white sm:rounded-xl", backgroundColor].join(
-        " ",
-      )}
-    >
-      <header className="flex items-center justify-between gap-4 p-4">
-        <div className="flex flex-col gap-1">
-          <h2 className="text-2xl font-bold">Unit {unitNumber}</h2>
-          <p className="text-lg">{description}</p>
-        </div>
-        <Link
-          href={`https://duolingo.com/guidebook/${language.code}/${unitNumber}`}
-          className={[
-            "flex items-center gap-3 rounded-2xl border-2 border-b-4 p-3 transition hover:text-gray-100",
-            borderColor,
-          ].join(" ")}
-        >
-          <GuidebookSvg />
-          <span className="sr-only font-bold uppercase lg:not-sr-only">
-            Guidebook
-          </span>
-        </Link>
-      </header>
-    </article>
+    <>
+      <article
+        className={["max-w-2xl text-white sm:rounded-xl", backgroundColor].join(
+          " ",
+        )}
+      >
+        <header className="flex items-center justify-between gap-4 p-4">
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-3">
+              <h2 className="text-2xl font-bold">Story {unitNumber}</h2>
+              <span className="rounded-full bg-white/20 px-3 py-1 text-sm font-medium">
+                {mascot}
+              </span>
+            </div>
+            <h3 className="text-xl font-semibold">{description}</h3>
+            <p className="text-sm opacity-90">{story}</p>
+          </div>
+          <button
+            onClick={() => setShowStoryGuide(true)}
+            className={[
+              "flex items-center gap-3 rounded-2xl border-2 border-b-4 p-3 transition hover:text-gray-100 hover:scale-105",
+              borderColor,
+            ].join(" ")}
+          >
+            <GuidebookSvg />
+            <span className="sr-only font-bold uppercase lg:not-sr-only">
+              Story Guide
+            </span>
+          </button>
+        </header>
+      </article>
+      
+      <StoryGuideModal
+        isOpen={showStoryGuide}
+        onClose={() => setShowStoryGuide(false)}
+        unitNumber={unitNumber}
+      />
+    </>
   );
 };

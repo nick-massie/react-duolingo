@@ -4,7 +4,6 @@ import type { ComponentProps } from "react";
 import React, { useState } from "react";
 import { useBoundStore } from "~/hooks/useBoundStore";
 import { Calendar } from "./Calendar";
-import { Flag } from "./Flag";
 import {
   FireSvg,
   GemSvg,
@@ -44,25 +43,9 @@ const EmptyGemTopBarSvg = (props: ComponentProps<"svg">) => {
   );
 };
 
-const AddLanguageSvg = (props: ComponentProps<"svg">) => {
-  return (
-    <svg width="36" height="29" viewBox="0 0 36 29" {...props}>
-      <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-        <g stroke="#AFAFAF">
-          <path
-            d="M7.743 3c-1.67 0-2.315.125-2.98.48A3.071 3.071 0 0 0 3.48 4.763c-.355.665-.48 1.31-.48 2.98v13.514c0 1.67.125 2.315.48 2.98.297.555.728.986 1.283 1.283.665.355 1.31.48 2.98.48h20.514c1.67 0 2.315-.125 2.98-.48a3.071 3.071 0 0 0 1.283-1.283c.355-.665.48-1.31.48-2.98V7.743c0-1.67-.125-2.315-.48-2.98a3.071 3.071 0 0 0-1.283-1.283c-.665-.355-1.31-.48-2.98-.48H7.743z"
-            strokeWidth="2"
-          />
-          <g strokeLinecap="round" strokeWidth="3">
-            <path d="M18 10v9M13.5 14.5h9" />
-          </g>
-        </g>
-      </g>
-    </svg>
-  );
-};
 
-type MenuState = "HIDDEN" | "LANGUAGES" | "STREAK" | "GEMS" | "MORE";
+
+type MenuState = "HIDDEN" | "PROFILES" | "STREAK" | "GEMS" | "MORE";
 
 export const TopBar = ({
   backgroundColor = "bg-[#58cc02]",
@@ -75,7 +58,6 @@ export const TopBar = ({
   const [now, setNow] = useState(dayjs());
   const streak = useBoundStore((x) => x.streak);
   const lingots = useBoundStore((x) => x.lingots);
-  const language = useBoundStore((x) => x.language);
   return (
     <header className="fixed z-20 h-[58px] w-full">
       <div
@@ -83,17 +65,19 @@ export const TopBar = ({
       >
         <button
           onClick={() =>
-            setMenu((x) => (x === "LANGUAGES" ? "HIDDEN" : "LANGUAGES"))
+            setMenu((x) => (x === "PROFILES" ? "HIDDEN" : "PROFILES"))
           }
         >
-          <Flag language={language} width={45} />
-          <span className="sr-only">See languages</span>
+          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/20">
+            <span className="text-lg">👤</span>
+          </div>
+          <span className="sr-only">Switch profiles</span>
         </button>
 
         <button
           className="flex items-center gap-2 font-bold text-white"
           onClick={() => setMenu((x) => (x === "STREAK" ? "HIDDEN" : "STREAK"))}
-          aria-label="Toggle streak menu"
+          aria-label="Toggle daily progress"
         >
           {streak > 0 ? <FireSvg /> : <EmptyFireTopBarSvg />}{" "}
           <span className={streak > 0 ? "text-white" : "text-black opacity-20"}>
@@ -103,7 +87,7 @@ export const TopBar = ({
         <button
           className="flex items-center gap-2 font-bold"
           onClick={() => setMenu((x) => (x === "GEMS" ? "HIDDEN" : "GEMS"))}
-          aria-label="Toggle lingot menu"
+          aria-label="Toggle stars menu"
         >
           {lingots > 0 ? <GemSvg /> : <EmptyGemTopBarSvg />}{" "}
           <span
@@ -128,23 +112,35 @@ export const TopBar = ({
         >
           {((): null | JSX.Element => {
             switch (menu) {
-              case "LANGUAGES":
+              case "PROFILES":
                 return (
                   <div className="flex gap-5 p-5">
-                    <div className="flex flex-col items-center justify-between gap-2">
-                      <div className="rounded-2xl border-4 border-blue-400">
-                        <Flag language={language} width={80} />
-                      </div>
-                      <span className="font-bold">{language.name}</span>
-                    </div>
                     <Link
                       className="flex flex-col items-center justify-between gap-2"
-                      href="/register"
+                      href="/"
                     >
-                      <div className="rounded-2xl border-4 border-white">
-                        <AddLanguageSvg className="h-16 w-20" />
+                      <div className="rounded-2xl border-4 border-blue-400 bg-blue-500 p-4">
+                        <span className="text-2xl">👨‍👩‍👧‍👦</span>
                       </div>
-                      <span className="font-bold text-gray-400">Courses</span>
+                      <span className="font-bold text-white">Parent</span>
+                    </Link>
+                    <Link
+                      className="flex flex-col items-center justify-between gap-2"
+                      href="/learn"
+                    >
+                      <div className="rounded-2xl border-4 border-green-400 bg-green-500 p-4">
+                        <span className="text-2xl">🧒</span>
+                      </div>
+                      <span className="font-bold text-white">Alex</span>
+                    </Link>
+                    <Link
+                      className="flex flex-col items-center justify-between gap-2"
+                      href="/learn"
+                    >
+                      <div className="rounded-2xl border-4 border-purple-400 bg-purple-500 p-4">
+                        <span className="text-2xl">👧</span>
+                      </div>
+                      <span className="font-bold text-white">Emma</span>
                     </Link>
                   </div>
                 );
@@ -152,9 +148,9 @@ export const TopBar = ({
               case "STREAK":
                 return (
                   <div className="flex grow flex-col items-center gap-3 p-5">
-                    <h2 className="text-xl font-bold">Streak</h2>
+                    <h2 className="text-xl font-bold">Daily Progress</h2>
                     <p className="text-sm text-gray-400">
-                      {`Practice each day so your streak won't reset!`}
+                      {`Keep learning every day to build your skills!`}
                     </p>
                     <div className="self-stretch">
                       <Calendar now={now} setNow={setNow} />
@@ -167,16 +163,16 @@ export const TopBar = ({
                   <div className="flex grow items-center gap-3 p-5">
                     <LingotsTreasureChestSvg className="h-24 w-24" />
                     <div className="flex flex-col gap-3">
-                      <h2 className="text-xl font-bold text-black">Lingots</h2>
+                      <h2 className="text-xl font-bold text-black">Stars</h2>
                       <p className="text-sm font-normal text-gray-400">
                         You have {lingots}{" "}
-                        {lingots === 1 ? "lingot" : "lingots"}.
+                        {lingots === 1 ? "star" : "stars"}.
                       </p>
                       <Link
                         className="font-bold uppercase text-blue-400 transition hover:brightness-110"
-                        href="/shop"
+                        href="/games"
                       >
-                        Go to shop
+                        Play games
                       </Link>
                     </div>
                   </div>

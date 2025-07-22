@@ -18,6 +18,8 @@ import {
 import womanPng from "../../public/woman.png";
 import { useBoundStore } from "~/hooks/useBoundStore";
 import { useRouter } from "next/router";
+import { TicTacToeGame } from "~/components/TicTacToeGame";
+import { BingoGame } from "~/components/BingoGame";
 
 const lessonProblem1 = {
   type: "SELECT_1_OF_3",
@@ -59,6 +61,7 @@ const formatTime = (timeMs: number): string => {
 const Lesson: NextPage = () => {
   const router = useRouter();
 
+  // All hooks must be declared before any conditional returns
   const [lessonProblem, setLessonProblem] = useState(0);
   const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
   const [incorrectAnswerCount, setIncorrectAnswerCount] = useState(0);
@@ -73,12 +76,57 @@ const Lesson: NextPage = () => {
 
   const [questionResults, setQuestionResults] = useState<QuestionResult[]>([]);
   const [reviewLessonShown, setReviewLessonShown] = useState(false);
+  const [isStartingLesson, setIsStartingLesson] = useState(true);
+
+  const increaseXp = useBoundStore((x) => x.increaseXp);
+  const increaseLessonsCompleted = useBoundStore((x) => x.increaseLessonsCompleted);
+
+  // Check if this is a game lesson
+  const gameType = router.query.game as string | undefined;
+  const gameUnitNumber = router.query.unit as string | undefined;
+  const gameLevelNumber = router.query.level as string | undefined;
+  
+  // Handle Tic-tac-toe game
+  if (gameType === "tic-tac-toe" || (gameUnitNumber === "1" && gameLevelNumber === "1")) {
+    return (
+      <TicTacToeGame 
+        onComplete={(won) => {
+          if (won) {
+            // Increase XP and other rewards
+            increaseXp(10);
+            increaseLessonsCompleted();
+          }
+          void router.push("/learn");
+        }}
+        onExit={() => {
+          void router.push("/learn");
+        }}
+      />
+    );
+  }
+
+  // Handle Bingo game
+  if (gameType === "bingo" || (gameUnitNumber === "1" && gameLevelNumber === "2")) {
+    return (
+      <BingoGame 
+        onComplete={(won) => {
+          if (won) {
+            // Increase XP and other rewards
+            increaseXp(10);
+            increaseLessonsCompleted();
+          }
+          void router.push("/learn");
+        }}
+        onExit={() => {
+          void router.push("/learn");
+        }}
+      />
+    );
+  }
 
   const problem = lessonProblems[lessonProblem] ?? lessonProblem1;
 
   const totalCorrectAnswersNeeded = 2;
-
-  const [isStartingLesson, setIsStartingLesson] = useState(true);
   const hearts =
     "fast-forward" in router.query &&
     !isNaN(Number(router.query["fast-forward"]))

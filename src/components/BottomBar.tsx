@@ -7,7 +7,7 @@ type BottomBarItem = {
   icon: JSX.Element;
 };
 
-export type Tab = "Learn" | "Shop" | "Profile" | "Leaderboards";
+export type Tab = "Learn" | "Practice" | "Progress" | "Stars" | "Profile";
 
 export const useBottomBarItems = () => {
   const loggedIn = useBoundStore((x) => x.loggedIn);
@@ -47,8 +47,31 @@ export const useBottomBarItems = () => {
       ),
     },
     {
-      name: "Shop",
-      href: "/shop",
+      name: "Practice",
+      href: "/practice",
+      icon: (
+        <svg
+          width="46"
+          height="46"
+          viewBox="0 0 46 46"
+          fill="none"
+          className="h-[50px] w-[50px]"
+        >
+          <circle cx="23" cy="23" r="20" fill="#4ECDC4" />
+          <path
+            d="M15 23C15 18.5817 18.5817 15 23 15C27.4183 15 31 18.5817 31 23C31 27.4183 27.4183 31 23 31C18.5817 31 15 27.4183 15 23Z"
+            fill="white"
+          />
+          <path
+            d="M20 23C20 21.3431 21.3431 20 23 20C24.6569 20 26 21.3431 26 23C26 24.6569 24.6569 26 23 26C21.3431 26 20 24.6569 20 23Z"
+            fill="#4ECDC4"
+          />
+        </svg>
+      ),
+    },
+    {
+      name: "Stars",
+      href: "/stars",
       icon: (
         <svg
           width="46"
@@ -58,34 +81,8 @@ export const useBottomBarItems = () => {
           className="h-[50px] w-[50px]"
         >
           <path
-            d="M40 36V17H6V36C6 38.2091 7.73969 40 9.88571 40H36.1143C38.2603 40 40 38.2091 40 36Z"
-            fill="#A56644"
-          />
-          <path d="M4 10C4 7.79086 5.79086 6 8 6H17V17H4V10Z" fill="#EA2B2B" />
-          <path
-            d="M4 17H17V17.5C17 21.0899 14.0899 24 10.5 24C6.91015 24 4 21.0899 4 17.5V17Z"
-            fill="#FF4945"
-          />
-          <path
-            d="M17 17H29V17.5C29 21.0899 26.3137 24 23 24C19.6863 24 17 21.0899 17 17.5V17Z"
-            fill="white"
-          />
-          <path
-            d="M29 17H42V17.5C42 21.0899 39.0899 24 35.5 24C31.9101 24 29 21.0899 29 17.5V17Z"
-            fill="#FF4945"
-          />
-          <path d="M17 6H29V17H17V6Z" fill="#D0D0D0" />
-          <path
-            d="M29 6H38C40.2091 6 42 7.79086 42 10V17H29V6Z"
-            fill="#EA2B2B"
-          />
-          <path
-            d="M11 30C11 28.8954 11.8954 28 13 28H18C19.1046 28 20 28.8954 20 30V40H11V30Z"
-            fill="#B9E8FF"
-          />
-          <path
-            d="M24 30C24 28.8954 24.8954 28 26 28H34C35.1046 28 36 28.8954 36 30V34C36 35.1046 35.1046 36 34 36H26C24.8954 36 24 35.1046 24 34V30Z"
-            fill="#B9E8FF"
+            d="M23 5L28.09 17.26L42 18.27L32 27.77L35.18 41.02L23 34.77L10.82 41.02L14 27.77L4 18.27L17.91 17.26L23 5Z"
+            fill="#FFD700"
           />
         </svg>
       ),
@@ -134,27 +131,29 @@ export const useBottomBarItems = () => {
         </svg>
       ),
     },
-  ];
-
-  if (loggedIn) {
-    bottomBarItems.splice(1, 0, {
-      name: "Leaderboards",
-      href: "/leaderboard",
+    {
+      name: "Progress",
+      href: "/progress",
       icon: (
-        <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+        <svg
+          width="46"
+          height="46"
+          viewBox="0 0 46 46"
+          fill="none"
+          className="h-[50px] w-[50px]"
+        >
+          <rect x="8" y="8" width="30" height="30" rx="4" fill="#FF6B6B" />
           <path
-            d="M7 9.5C7 7.84314 8.34315 6.5 10 6.5H36C37.6569 6.5 39 7.84315 39 9.5V23.5C39 32.3366 31.8366 39.5 23 39.5C14.1634 39.5 7 32.3366 7 23.5V9.5Z"
-            fill="#FEC701"
-          />
-          <path
-            opacity="0.3"
-            d="M39.0001 13.3455V9.5C39.0001 7.84315 37.657 6.5 36.0001 6.5H31.5706L8.30957 29.8497C9.68623 33.0304 12.0656 35.6759 15.0491 37.3877L39.0001 13.3455Z"
-            fill="white"
+            d="M15 20L20 25L31 14"
+            stroke="white"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       ),
-    });
-  }
+    },
+  ];
 
   return bottomBarItems;
 };

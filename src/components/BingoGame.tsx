@@ -382,27 +382,32 @@ export const BingoGame: React.FC<BingoGameProps> = ({
           </div>
 
           {/* Addition Problem */}
-          {selectedSquare !== null && board[selectedSquare]?.problem && !showFeedback && (
+          {selectedSquare !== null && board[selectedSquare]?.problem && !showFeedback && (() => {
+            const currentSquare = board[selectedSquare];
+            const problem = currentSquare?.problem;
+            if (!problem) return null;
+            
+            return (
             <div className="rounded-2xl bg-white p-6 shadow-xl">
               <h3 className="mb-4 text-center text-xl font-bold text-gray-800">
                 Mix these colors!
               </h3>
               <div className="mb-6 flex items-center justify-center gap-3">
                 <div className="flex gap-1">
-                  {Array.from({ length: board[selectedSquare].problem.num1 }).map((_, i) => (
+                  {Array.from({ length: problem.num1 }).map((_, i) => (
                     <PaintDropSvg 
                       key={`drop1-${i}`} 
-                      style={{ color: board[selectedSquare].problem.color1 }}
+                      style={{ color: problem.color1 }}
                       className="animate-bounce"
                     />
                   ))}
                 </div>
                 <span className="text-2xl font-bold">+</span>
                 <div className="flex gap-1">
-                  {Array.from({ length: board[selectedSquare].problem.num2 }).map((_, i) => (
+                  {Array.from({ length: problem.num2 }).map((_, i) => (
                     <PaintDropSvg 
                       key={`drop2-${i}`} 
-                      style={{ color: board[selectedSquare].problem.color2 }}
+                      style={{ color: problem.color2 }}
                       className="animate-bounce"
                     />
                   ))}
@@ -411,7 +416,7 @@ export const BingoGame: React.FC<BingoGameProps> = ({
                 <span className="text-3xl font-bold">?</span>
               </div>
               <div className="flex gap-4 justify-center">
-                {generateOptions(board[selectedSquare].problem.answer).map((option) => (
+                {generateOptions(problem.answer).map((option) => (
                   <button
                     key={option}
                     onClick={() => handleAnswer(option)}
@@ -422,7 +427,8 @@ export const BingoGame: React.FC<BingoGameProps> = ({
                 ))}
               </div>
             </div>
-          )}
+            );
+          })()}
 
           {/* Help Button */}
           <button

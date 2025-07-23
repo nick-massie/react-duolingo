@@ -56,6 +56,29 @@ const PennyCharacter = () => (
 type GameState = "intro" | "playing" | "won" | "lost";
 type SquareState = "empty" | "correct" | "blocked";
 
+// Generate addition problems - moved outside component to avoid useEffect dependency warning
+const generateProblems = () => {
+  const colors = ["#FF6B6B", "#4ECDC4", "#45B7D1", "#F7DC6F", "#BB8FCE", "#85C1E9"];
+  const problemTemplates = [
+    { num1: 1, num2: 1 },
+    { num1: 2, num2: 1 },
+    { num1: 1, num2: 2 },
+    { num1: 2, num2: 2 },
+    { num1: 3, num2: 1 },
+    { num1: 1, num2: 3 },
+    { num1: 3, num2: 2 },
+    { num1: 2, num2: 3 },
+    { num1: 3, num2: 3 },
+  ];
+
+  return problemTemplates.map(template => ({
+    ...template,
+    answer: template.num1 + template.num2,
+    color1: colors[Math.floor(Math.random() * colors.length)] ?? "#FF6B6B",
+    color2: colors[Math.floor(Math.random() * colors.length)] ?? "#4ECDC4",
+  }));
+};
+
 interface BingoSquare {
   id: number;
   state: SquareState;
@@ -82,7 +105,6 @@ export const BingoGame: React.FC<BingoGameProps> = ({
   const [selectedSquare, setSelectedSquare] = useState<number | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState("");
-  const [completedLines, setCompletedLines] = useState<number[]>([]);
 
   // Color palette for paint drops
   const colors = ["#FF6B6B", "#4ECDC4", "#45B7D1", "#F7DC6F", "#BB8FCE", "#85C1E9"];
@@ -97,28 +119,6 @@ export const BingoGame: React.FC<BingoGameProps> = ({
     }));
     setBoard(newBoard);
   }, []);
-
-  // Generate addition problems
-  const generateProblems = () => {
-    const problemTemplates = [
-      { num1: 1, num2: 1 },
-      { num1: 2, num2: 1 },
-      { num1: 1, num2: 2 },
-      { num1: 2, num2: 2 },
-      { num1: 3, num2: 1 },
-      { num1: 1, num2: 3 },
-      { num1: 3, num2: 2 },
-      { num1: 2, num2: 3 },
-      { num1: 3, num2: 3 },
-    ];
-
-    return problemTemplates.map(template => ({
-      ...template,
-      answer: template.num1 + template.num2,
-      color1: colors[Math.floor(Math.random() * colors.length)] ?? "#FF6B6B",
-      color2: colors[Math.floor(Math.random() * colors.length)] ?? "#4ECDC4",
-    }));
-  };
 
   // Check for winning lines
   const checkWin = (squares: BingoSquare[]): number[] => {
@@ -177,7 +177,6 @@ export const BingoGame: React.FC<BingoGameProps> = ({
       const winningLines = checkWin(newBoard);
       
       if (winningLines.length > 0) {
-        setCompletedLines(winningLines);
         setTimeout(() => setGameState("won"), 1500);
       }
     } else {
@@ -286,13 +285,12 @@ export const BingoGame: React.FC<BingoGameProps> = ({
             Keep Mixing!
           </h1>
           <p className="mt-4 text-lg text-gray-600">
-            Let's try mixing colors again!
+            Let&apos;s try mixing colors again!
           </p>
           <button
             onClick={() => {
               setBoard([]);
               setSelectedSquare(null);
-              setCompletedLines([]);
               setGameState("intro");
             }}
             className="mt-8 rounded-xl bg-orange-500 px-8 py-4 text-xl font-bold text-white shadow-lg transition hover:bg-orange-600"

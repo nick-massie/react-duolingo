@@ -8,6 +8,7 @@ type BottomBarItem = {
 };
 
 export type Tab = "Learn" | "Practice" | "Progress" | "Stars" | "Profile";
+export type Tab = "Learn" | "Practice" | "Progress" | "Stars" | "Profile" | "Leaderboards";
 
 export const useBottomBarItems = () => {
   const loggedIn = useBoundStore((x) => x.loggedIn);

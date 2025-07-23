@@ -106,9 +106,6 @@ export const BingoGame: React.FC<BingoGameProps> = ({
   const [showFeedback, setShowFeedback] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState("");
 
-  // Color palette for paint drops
-  const colors = ["#FF6B6B", "#4ECDC4", "#45B7D1", "#F7DC6F", "#BB8FCE", "#85C1E9"];
-
   // Initialize board with problems
   useEffect(() => {
     const problems = generateProblems();
@@ -160,7 +157,7 @@ export const BingoGame: React.FC<BingoGameProps> = ({
   const handleAnswer = (answer: number) => {
     if (selectedSquare === null || !board[selectedSquare]?.problem) return;
 
-    const isCorrect = answer === board[selectedSquare].problem.answer;
+    const isCorrect = answer === board[selectedSquare]?.problem?.answer;
     
     const newBoard = [...board];
     const currentSquare = newBoard[selectedSquare];
@@ -247,7 +244,7 @@ export const BingoGame: React.FC<BingoGameProps> = ({
             onClick={() => setGameState("playing")}
             className="mt-8 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-4 text-xl font-bold text-white shadow-lg transition hover:scale-105"
           >
-            Let's Paint! 🎨
+            Let&apos;s Paint! 🎨
           </button>
         </div>
       </div>
@@ -392,20 +389,20 @@ export const BingoGame: React.FC<BingoGameProps> = ({
               </h3>
               <div className="mb-6 flex items-center justify-center gap-3">
                 <div className="flex gap-1">
-                  {Array.from({ length: problem.num1 }).map((_, i) => (
+                  {Array.from({ length: board[selectedSquare]?.problem?.num1 ?? 0 }).map((_, i) => (
                     <PaintDropSvg 
                       key={`drop1-${i}`} 
-                      style={{ color: problem.color1 }}
+                      style={{ color: board[selectedSquare]?.problem?.color1 ?? "#FF6B6B" }}
                       className="animate-bounce"
                     />
                   ))}
                 </div>
                 <span className="text-2xl font-bold">+</span>
                 <div className="flex gap-1">
-                  {Array.from({ length: problem.num2 }).map((_, i) => (
+                  {Array.from({ length: board[selectedSquare]?.problem?.num2 ?? 0 }).map((_, i) => (
                     <PaintDropSvg 
                       key={`drop2-${i}`} 
-                      style={{ color: problem.color2 }}
+                      style={{ color: board[selectedSquare]?.problem?.color2 ?? "#4ECDC4" }}
                       className="animate-bounce"
                     />
                   ))}
@@ -414,7 +411,7 @@ export const BingoGame: React.FC<BingoGameProps> = ({
                 <span className="text-3xl font-bold">?</span>
               </div>
               <div className="flex gap-4 justify-center">
-                {generateOptions(problem.answer).map((option) => (
+                {generateOptions(board[selectedSquare]?.problem?.answer ?? 0).map((option) => (
                   <button
                     key={option}
                     onClick={() => handleAnswer(option)}
@@ -432,7 +429,7 @@ export const BingoGame: React.FC<BingoGameProps> = ({
           <button
             className="rounded-xl bg-yellow-400 px-6 py-3 font-bold text-gray-800 shadow-lg transition hover:bg-yellow-500"
           >
-            I Don't Understand 🤔
+            I Don&apos;t Understand 🤔
           </button>
         </div>
       </div>

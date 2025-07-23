@@ -174,13 +174,13 @@ export const TicTacToeGame: React.FC<TicTacToeGameProps> = ({
             Help Penny Count Colors!
           </h1>
           <p className="mt-4 text-lg text-gray-600">
-            Penny's magical paintbrush has lost its colors! Help her collect colors by counting paint drops and playing Tic-tac-toe.
+            Penny&apos;s magical paintbrush has lost its colors! Help her collect colors by counting paint drops and playing Tic-tac-toe.
           </p>
           <button
             onClick={() => setGameState("playing")}
             className="mt-8 rounded-xl bg-gradient-to-r from-pink-500 to-purple-500 px-8 py-4 text-xl font-bold text-white shadow-lg transition hover:scale-105"
           >
-            Let's Play! 🎮
+            Let&apos;s Play! 🎮
           </button>
         </div>
       </div>
@@ -218,7 +218,7 @@ export const TicTacToeGame: React.FC<TicTacToeGameProps> = ({
             Good Try!
           </h1>
           <p className="mt-4 text-lg text-gray-600">
-            Let's try again to help Penny!
+            Let&apos;s try again to help Penny!
           </p>
           <button
             onClick={() => {
@@ -340,7 +340,7 @@ export const TicTacToeGame: React.FC<TicTacToeGameProps> = ({
           <button
             className="rounded-xl bg-yellow-400 px-6 py-3 font-bold text-gray-800 shadow-lg transition hover:bg-yellow-500"
           >
-            I Don't Understand 🤔
+            I Don&apos;t Understand 🤔
           </button>
         </div>
       </div>

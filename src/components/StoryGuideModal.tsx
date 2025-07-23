@@ -204,7 +204,7 @@ export const StoryGuideModal: React.FC<StoryGuideModalProps> = ({
               onClick={onClose}
               className="w-full rounded-xl bg-gradient-to-r from-red-500 to-pink-500 py-3 text-lg font-bold text-white shadow-lg transition hover:from-red-600 hover:to-pink-600"
             >
-              Let's Learn! 🚀
+              Let&apos;s Learn! 🚀
             </button>
           </div>
         </div>

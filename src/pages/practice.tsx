@@ -21,7 +21,7 @@ const Practice: NextPage = () => {
             <div className="rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 p-6 text-white">
               <div className="flex items-start justify-between">
                 <div className="flex flex-col gap-3">
-                  <h2 className="text-2xl font-bold">Today's Practice</h2>
+                  <h2 className="text-2xl font-bold">Today&apos;s Practice</h2>
                   <p className="text-lg opacity-90">
                     Keep your skills sharp with fun games!
                   </p>

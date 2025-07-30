@@ -1,0 +1,39 @@
+Dev Estimate,,Total Dev Hours,260,
+Feature Listing,Page,Use Case/Action,Dev,Notes/assumptions/questions
+Pre-dev phase,,,72,
+,Local set up,"Codebase, versioning, access, CI/CD etc.",8,
+,Server set up,,8,
+,Requirements,"Introductions, meetings, req/design clarifications",24,
+,Solution Design,,20,
+,Database development,,12,
+,,,,
+Login/registration/Profile,,,40,
+,"Parent registration, plan etc",Collect payment and CC info,,"Send confirmation email and verify email, google or facebook login"
+,Forgot Password,,,Send confirmation email and verify email
+,Add Child profile,,,
+,Upload IEP and/or complete onboarding survey,,,
+,Match child to exercises,Or generate appropriate games,,
+,,,,
+Dashboard,,,20,
+,Landing page,"Welcome message, quick note on current state and future state",,
+,,Link Options on what to do next,,game options with appropriate rating
+"""Mascot"" and interactions",,,20,
+,Mascot shows up on all pages,"""I dont understand"" button, encouragement, rules clarification etc.",,"track all questions by the user, remembering kids bday, location based, time of day, season based, messaging - ask about hobbies or other things. To create a guidelines document that puts guardrails on what the AI is able to talk about and more importantly NOT to talk about"
+Math Game - Bingo,,,40,
+,3x3 or 4x4 squares,"problem on each square, objective is to get to get across, wrong answer means that path is blocked, have to find alternate path across",,"horizontal, vertical and diagonal"
+,,"levels in increasing difficulty: addition, subtraction, verbal addition, verbal subtraction, multiplication, division, verbal multiplication, verbal division",,track all activities and questions by the user
+,,,,
+,,,,
+Math Game - Snakes & Ladders,,,40,
+,Similar to bingo except that grid is 5x5 and there are snales and ladders,"once a square is solved, it doesn't need to be solved again, roll the die and move that many spaces, provide some animation on the move",,"move forward number of spaces based on die, and react to the action. You cannot roll die until a problem has been answered. Lower levels easier questions, upper level harder questions. "
+,,,,track all activities and questions by the user
+,,,,
+Reading - Bingo,,,40,
+,3x3 or 4x4 squares,Each comprehension test is manually uploaded and tagged by admin,,"horizontal, vertical and diagonal"
+,,,,track all activities and questions by the user
+,,,,
+Reading - Snakes & Ladders,,,40,
+,Similar to bingo except that grid is 5x5 and there are snales and ladders,"once a square is solved, it doesn't need to be solved again, roll the die and move that many spaces, provide some animation on the move",,"move forward number of spaces based on die, and react to the action. You cannot roll die until a problem has been answered. Lower levels easier questions, upper level harder questions. "
+,,,,track all activities and questions by the user
+Payment reporting,,,20,
+,Built-in to stripe,Refunds and other features,,Stripe integration

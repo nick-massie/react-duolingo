@@ -91,7 +91,7 @@ export const LeftBar = ({ selectedTab }: { selectedTab: Tab | null }) => {
               <div className="flex flex-col py-2">
                 <Link
                   className="flex items-center gap-4 px-5 py-2 text-left uppercase hover:bg-gray-100"
-                  href="/help"
+                  href="#"
                 >
                   <svg className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -100,7 +100,7 @@ export const LeftBar = ({ selectedTab }: { selectedTab: Tab | null }) => {
                 </Link>
                 <Link
                   className="flex items-center gap-4 px-5 py-2 text-left uppercase hover:bg-gray-100"
-                  href="/parents"
+                  href="#"
                 >
                   <svg className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
@@ -111,6 +111,7 @@ export const LeftBar = ({ selectedTab }: { selectedTab: Tab | null }) => {
               <div className="flex flex-col border-t-2 border-gray-300 py-2">
                 {!loggedIn && (
                   <button
+                    disabled={true}
                     className="px-5 py-2 text-left uppercase hover:bg-gray-100"
                     onClick={() => setLoginScreenState("SIGNUP")}
                   >
@@ -119,26 +120,28 @@ export const LeftBar = ({ selectedTab }: { selectedTab: Tab | null }) => {
                 )}
                 <Link
                   className="px-5 py-2 text-left uppercase hover:bg-gray-100"
-                  href={loggedIn ? "/settings/account" : "/settings/sound"}
+                  href={"#"}
                 >
                   Settings
                 </Link>
                 <Link
                   className="px-5 py-2 text-left uppercase hover:bg-gray-100"
-                  href="https://support.duolingo.com/hc/en-us"
+                  href="#"
                 >
                   Help
                 </Link>
                 {!loggedIn && (
                   <button
+                    disabled={true}
                     className="px-5 py-2 text-left uppercase hover:bg-gray-100"
                     onClick={() => setLoginScreenState("LOGIN")}
                   >
-                    Sign in
+                   Sign out
                   </button>
                 )}
                 {loggedIn && (
                   <button
+                    disabled={true}
                     className="px-5 py-2 text-left uppercase hover:bg-gray-100"
                     onClick={logOut}
                   >

@@ -7,7 +7,7 @@ type BottomBarItem = {
   icon: JSX.Element;
 };
 
-export type Tab = "Learn" | "Practice" | "Progress" | "Stars" | "Profile";
+export type Tab = "Learn" | "Practice" | "Progress" | "Store" | "Arcade" | "Profile";
 
 export const useBottomBarItems = () => {
   const loggedIn = useBoundStore((x) => x.loggedIn);
@@ -70,8 +70,8 @@ export const useBottomBarItems = () => {
       ),
     },
     {
-      name: "Stars",
-      href: "/stars",
+      name: "Store",
+      href: "/store",
       icon: (
         <svg
           width="46"
@@ -80,10 +80,45 @@ export const useBottomBarItems = () => {
           fill="none"
           className="h-[50px] w-[50px]"
         >
+          <rect x="8" y="14" width="30" height="24" rx="2" fill="#FFD700" />
           <path
-            d="M23 5L28.09 17.26L42 18.27L32 27.77L35.18 41.02L23 34.77L10.82 41.02L14 27.77L4 18.27L17.91 17.26L23 5Z"
+            d="M6 14L8 8h30l2 6v2H6v-2z"
+            fill="#FFA500"
+          />
+          <circle cx="18" cy="26" r="2" fill="#FFF" />
+          <circle cx="28" cy="26" r="2" fill="#FFF" />
+          <path
+            d="M12 20h6v2h-6v-2zm8 0h6v2h-6v-2zm8 0h6v2h-6v-2z"
+            fill="#FFA500"
+          />
+          <path
+            d="M23 32l-2-2h4l-2 2z"
             fill="#FFD700"
           />
+        </svg>
+      ),
+    },
+    {
+      name: "Arcade",
+      href: "/arcade",
+      icon: (
+        <svg
+          width="46"
+          height="46"
+          viewBox="0 0 46 46"
+          fill="none"
+          className="h-[50px] w-[50px]"
+        >
+          <rect x="8" y="12" width="30" height="22" rx="4" fill="#9333EA" />
+          <rect x="10" y="14" width="26" height="16" rx="2" fill="#1F2937" />
+          <circle cx="14" cy="38" r="3" fill="#9333EA" />
+          <circle cx="32" cy="38" r="3" fill="#9333EA" />
+          <circle cx="17" cy="22" r="2" fill="#EF4444" />
+          <circle cx="23" cy="22" r="2" fill="#10B981" />
+          <circle cx="29" cy="22" r="2" fill="#3B82F6" />
+          <circle cx="35" cy="22" r="2" fill="#F59E0B" />
+          <rect x="14" y="26" width="4" height="2" rx="1" fill="#6B7280" />
+          <rect x="28" y="26" width="4" height="2" rx="1" fill="#6B7280" />
         </svg>
       ),
     },

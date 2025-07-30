@@ -101,7 +101,11 @@ export const StoryGuideModal: React.FC<StoryGuideModalProps> = ({
             {/* Story Introduction */}
             <div className="mb-8 rounded-2xl bg-white p-6 shadow-lg">
               <div className="mb-4 flex justify-center">
-                <PaintPaletteIcon />
+                <img
+                  src="/Penny painting default.webp"
+                  alt="Penny the Painter"
+                  className="h-32 w-32 object-contain rounded-xl shadow-md"
+                />
               </div>
               <h3 className="mb-3 text-center text-2xl font-bold text-gray-800">
                 Penny&apos;s Paint Adventure! 🎨

@@ -29,21 +29,21 @@ const Practice: NextPage = () => {
                     href="/lesson?practice"
                     className="w-fit rounded-xl bg-white px-6 py-3 text-center font-bold text-purple-600 transition hover:bg-gray-100"
                   >
-                    START +20 POINTS
+                    START +20 COINS
                   </Link>
                 </div>
                 <div className="relative">
-                  <div className="absolute -top-2 -right-2 h-8 w-8 rounded-full bg-blue-400 p-1">
-                    <span className="text-sm">📚</span>
+                  <div className="absolute -top-2 -right-2 flex h-8 w-8 items-center justify-center rounded-full bg-blue-400">
+                    <span className="text-lg">📚</span>
                   </div>
-                  <div className="absolute -bottom-2 -left-2 h-8 w-8 rounded-full bg-pink-400 p-1">
-                    <span className="text-sm">💬</span>
+                  <div className="absolute -bottom-2 -left-2 flex h-8 w-8 items-center justify-center rounded-full bg-pink-400">
+                    <span className="text-lg">💬</span>
                   </div>
-                  <div className="h-24 w-24 rounded-full bg-green-500 p-4">
-                    <span className="text-4xl">🎮</span>
+                  <div className="flex h-24 w-24 items-center justify-center rounded-full bg-green-500">
+                    <span className="text-5xl">🎮</span>
                   </div>
-                  <div className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-yellow-400 p-1">
-                    <span className="text-xs">⭐</span>
+                  <div className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-yellow-400">
+                    <span className="text-sm">⭐</span>
                   </div>
                 </div>
               </div>
@@ -64,8 +64,8 @@ const Practice: NextPage = () => {
                     Practice math skills with X&apos;s and O&apos;s
                   </p>
                 </div>
-                <div className="h-16 w-16 rounded-full bg-red-500 p-3">
-                  <span className="text-2xl">⭕</span>
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-500">
+                  <span className="text-4xl">⭕</span>
                 </div>
               </Link>
 
@@ -79,8 +79,8 @@ const Practice: NextPage = () => {
                     Learn reading and matching with Bingo
                   </p>
                 </div>
-                <div className="h-16 w-16 rounded-full bg-blue-500 p-3">
-                  <span className="text-2xl">🎲</span>
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-500">
+                  <span className="text-4xl">🎲</span>
                 </div>
               </Link>
 
@@ -94,8 +94,8 @@ const Practice: NextPage = () => {
                     Build social skills with climbing and sliding
                   </p>
                 </div>
-                <div className="h-16 w-16 rounded-full bg-green-500 p-3">
-                  <span className="text-2xl">🪜</span>
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-500">
+                  <span className="text-4xl">🪜</span>
                 </div>
               </Link>
             </div>
@@ -113,8 +113,8 @@ const Practice: NextPage = () => {
                   </p>
                 </div>
                 <div className="relative">
-                  <div className="h-16 w-16 rounded-full bg-orange-500 p-3">
-                    <span className="text-2xl">🔄</span>
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-orange-500">
+                    <span className="text-4xl">🔄</span>
                   </div>
                   <div className="absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-xs font-bold">
                     2
@@ -130,8 +130,8 @@ const Practice: NextPage = () => {
                   </p>
                 </div>
                 <div className="relative">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-500 p-3">
-                    <span className="text-2xl">⭐</span>
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-500">
+                    <span className="text-4xl">⭐</span>
                   </div>
                   <div className="absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-xs font-bold">
                     30+

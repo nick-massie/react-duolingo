@@ -86,8 +86,29 @@ const Lesson: NextPage = () => {
   const gameUnitNumber = router.query.unit as string | undefined;
   const gameLevelNumber = router.query.level as string | undefined;
   
-  // Handle Tic-tac-toe game
-  if (gameType === "tic-tac-toe" || (gameUnitNumber === "1" && gameLevelNumber === "1")) {
+  // Handle Level 1 - Enhanced Bingo Game (Count to 10) 
+  if (gameUnitNumber === "1" && gameLevelNumber === "1") {
+    return (
+      <BingoGame 
+        onComplete={(won) => {
+          if (won) {
+            // Increase XP and other rewards
+            increaseXp(15); // More XP for enhanced game
+            increaseLessonsCompleted();
+          }
+          void router.push("/learn");
+        }}
+        onExit={() => {
+          void router.push("/learn");
+        }}
+        storyMode={true}
+        level={1}
+      />
+    );
+  }
+
+  // Handle Tic-tac-toe game (moved to level 3)
+  if (gameType === "tic-tac-toe" || (gameUnitNumber === "1" && gameLevelNumber === "3")) {
     return (
       <TicTacToeGame 
         onComplete={(won) => {

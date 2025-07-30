@@ -22,7 +22,7 @@ export const RightBar = () => {
 
         <StoryCharactersSection />
         <DailyQuestsSection />
-        <XpProgressSection />
+        <CoinInfoSection />
       </aside>
       <LoginScreen
         loginScreenState={loginScreenState}
@@ -91,7 +91,7 @@ const DailyQuestsSection = () => {
       <div className="flex items-center gap-4">
         <LightningProgressSvg />
         <div className="flex flex-col gap-2">
-          <h3>Earn {goalXp} points</h3>
+          <h3>Earn {goalXp} coins</h3>
           <div className="flex items-center">
             <div className="relative h-5 w-52 rounded-l-full bg-gray-200">
               <div
@@ -411,37 +411,46 @@ const TreasureClosedSvg = (props: ComponentProps<"svg">) => {
   );
 };
 
-const XpProgressSection = () => {
-  const xpToday = useBoundStore((x) => x.xpToday());
-  const goalXp = useBoundStore((x) => x.goalXp);
+const CoinInfoSection = () => {
+  const coins = useBoundStore((x) => x.coins);
+  const totalCoinsEarned = useBoundStore((x) => x.totalCoinsEarned);
   return (
     <article className="flex flex-col gap-5 rounded-2xl border-2 border-gray-200 p-6 font-bold text-gray-700">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl">Learning Progress</h2>
-        <Link href="/settings/coach" className="uppercase text-blue-400">
-          Edit goal
+        <h2 className="text-xl">My Coins</h2>
+        <Link href="/store" className="uppercase text-blue-400">
+          Go to Store
         </Link>
       </div>
       <div className="flex gap-5">
-        <TreasureClosedSvg />
+        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-b from-yellow-400 to-yellow-500 shadow-lg">
+          <span className="text-4xl">🪙</span>
+        </div>
         <div className="flex grow flex-col justify-around">
-          <h3 className="font-normal text-gray-500">Daily goal</h3>
-          <div className="flex items-center gap-5">
-            <div className="relative h-4 w-full grow rounded-full bg-gray-200">
-              {xpToday > 0 && (
-                <div
-                  className="absolute left-0 top-0 h-4 rounded-full bg-yellow-400"
-                  style={{ width: `${Math.min(1, xpToday / goalXp) * 100}%` }}
-                >
-                  <div className="absolute left-2 right-2 top-1 h-[6px] rounded-full bg-yellow-300"></div>
-                </div>
-              )}
-            </div>
-            <div className="text-md shrink-0 font-normal text-gray-400">
-              {xpToday}/{goalXp} points
+          <div className="flex flex-col gap-1">
+            <h3 className="text-2xl font-bold text-yellow-600">{coins}</h3>
+            <p className="font-normal text-gray-500">Ready to spend!</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="text-sm font-normal text-gray-400">
+              Total earned: {totalCoinsEarned} coins
             </div>
           </div>
         </div>
+      </div>
+      <div className="flex gap-2">
+        <Link 
+          href="/arcade" 
+          className="flex-1 rounded-xl bg-purple-100 py-3 text-center text-sm font-bold text-purple-700 transition hover:bg-purple-200"
+        >
+          🎮 Play Games
+        </Link>
+        <Link 
+          href="/store" 
+          className="flex-1 rounded-xl bg-yellow-100 py-3 text-center text-sm font-bold text-yellow-700 transition hover:bg-yellow-200"
+        >
+          🛍️ Buy Items
+        </Link>
       </div>
     </article>
   );

@@ -16,6 +16,8 @@ import type { UserSlice } from "~/stores/createUserStore";
 import { createUserSlice } from "~/stores/createUserStore";
 import type { XpSlice } from "~/stores/createXpStore";
 import { createXpSlice } from "~/stores/createXpStore";
+import type { CoinSlice } from "~/stores/createCoinStore";
+import { createCoinSlice } from "~/stores/createCoinStore";
 
 type BoundState = GoalXpSlice &
   LanguageSlice &
@@ -24,7 +26,8 @@ type BoundState = GoalXpSlice &
   SoundSettingsSlice &
   StreakSlice &
   UserSlice &
-  XpSlice;
+  XpSlice &
+  CoinSlice;
 
 export type BoundStateCreator<SliceState> = StateCreator<
   BoundState,
@@ -42,4 +45,5 @@ export const useBoundStore = create<BoundState>((...args) => ({
   ...createStreakSlice(...args),
   ...createUserSlice(...args),
   ...createXpSlice(...args),
+  ...createCoinSlice(...args),
 }));

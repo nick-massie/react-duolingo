@@ -64,7 +64,7 @@ const ParticleEffect = ({ show }: { show: boolean }) => {
 };
 
 // Penny the Painter character
-const PennyCharacter = ({ animated = false, correctAnswers = 0 }: { animated?: boolean; correctAnswers?: number }) => {
+const PennyCharacter = ({ animated: _animated = false, correctAnswers = 0 }: { animated?: boolean; correctAnswers?: number }) => {
   // Choose image based on progress
   const getPennyImage = () => {
     if (correctAnswers >= 2) {

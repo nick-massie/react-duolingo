@@ -23,23 +23,47 @@ import { BingoGame } from "~/components/BingoGame";
 
 const lessonProblem1 = {
   type: "SELECT_1_OF_3",
-  question: `Which one of these is "the apple"?`,
+  question: `Which picture shows an apple?`,
   answers: [
-    { icon: <AppleSvg />, name: "la manzana" },
-    { icon: <BoySvg />, name: "el niño" },
-    { icon: <WomanSvg />, name: "la mujer" },
+    { icon: <AppleSvg />, name: "apple" },
+    { icon: <BoySvg />, name: "boy" },
+    { icon: <WomanSvg />, name: "woman" },
   ],
   correctAnswer: 0,
 } as const;
 
 const lessonProblem2 = {
   type: "WRITE_IN_ENGLISH",
-  question: "El niño",
-  answerTiles: ["woman", "milk", "water", "I", "The", "boy"],
-  correctAnswer: [4, 5],
+  question: "Make the word for this picture:",
+  answerTiles: ["c", "a", "t", "d", "o", "g"],
+  correctAnswer: [0, 1, 2],
 } as const;
 
-const lessonProblems = [lessonProblem1, lessonProblem2];
+const lessonProblem3 = {
+  type: "SELECT_1_OF_3",
+  question: `Which word matches this picture?`,
+  pictureDisplay: "🐕",
+  answers: [
+    { icon: null, name: "cat" },
+    { icon: null, name: "dog" },
+    { icon: null, name: "bird" },
+  ],
+  correctAnswer: 1,
+} as const;
+
+const lessonProblem4 = {
+  type: "SELECT_1_OF_3",
+  question: `Which word starts with the letter "B"?`,
+  letterDisplay: "B",
+  answers: [
+    { icon: null, name: "ball" },
+    { icon: null, name: "cat" },
+    { icon: null, name: "dog" },
+  ],
+  correctAnswer: 0,
+} as const;
+
+const lessonProblems = [lessonProblem1, lessonProblem2, lessonProblem3, lessonProblem4];
 
 const numbersEqual = (a: readonly number[], b: readonly number[]): boolean => {
   return a.length === b.length && a.every((_, i) => a[i] === b[i]);
@@ -79,6 +103,7 @@ const Lesson: NextPage = () => {
   const [isStartingLesson, setIsStartingLesson] = useState(true);
 
   const increaseXp = useBoundStore((x) => x.increaseXp);
+  const earnCoins = useBoundStore((x) => x.earnCoins);
   const increaseLessonsCompleted = useBoundStore((x) => x.increaseLessonsCompleted);
 
   // Check if this is a game lesson
@@ -147,7 +172,7 @@ const Lesson: NextPage = () => {
 
   const problem = lessonProblems[lessonProblem] ?? lessonProblem1;
 
-  const totalCorrectAnswersNeeded = 2;
+  const totalCorrectAnswersNeeded = 4;
   const hearts =
     "fast-forward" in router.query &&
     !isNaN(Number(router.query["fast-forward"]))
@@ -467,7 +492,7 @@ const CheckAnswer = ({
                 <div className="hidden rounded-full bg-white p-5 text-green-500 sm:block">
                   <DoneSvg />
                 </div>
-                <div className="text-2xl">Good job!</div>
+                <div className="text-2xl">Great reading!</div>
               </div>
             ) : (
               <div className="mb-2 flex flex-col gap-5 sm:flex-row sm:items-center">
@@ -543,6 +568,16 @@ const ProblemSelect1Of3 = ({
           <h1 className="self-start text-2xl font-bold sm:text-3xl">
             {question}
           </h1>
+          {problem.letterDisplay && (
+            <div className="text-8xl font-bold text-center bg-blue-100 rounded-full w-32 h-32 flex items-center justify-center mx-auto">
+              {problem.letterDisplay}
+            </div>
+          )}
+          {problem.pictureDisplay && (
+            <div className="text-8xl text-center">
+              {problem.pictureDisplay}
+            </div>
+          )}
           <div
             className="grid grid-cols-2 gap-2 sm:grid-cols-3"
             role="radiogroup"
@@ -561,8 +596,8 @@ const ProblemSelect1Of3 = ({
                   tabIndex={0}
                   onClick={() => setSelectedAnswer(i)}
                 >
-                  {answer.icon}
-                  <h2 className="text-center">{answer.name}</h2>
+                  {answer.icon && answer.icon}
+                  <h2 className={`text-center ${answer.icon ? '' : 'text-2xl font-bold py-8'}`}>{answer.name}</h2>
                 </div>
               );
             })}
@@ -632,21 +667,14 @@ const ProblemWriteInEnglish = ({
         </div>
         <section className="flex max-w-2xl grow flex-col gap-5 self-center sm:items-center sm:justify-center sm:gap-24">
           <h1 className="mb-2 text-2xl font-bold sm:text-3xl">
-            Write this in English
+            Spell the word!
           </h1>
 
           <div className="w-full">
-            <div className="flex items-center gap-2 px-2">
-              <Image src={womanPng} alt="" width={92} height={115} />
-              <div className="relative ml-2 w-fit rounded-2xl border-2 border-gray-200 p-4">
-                {question}
-                <div
-                  className="absolute h-4 w-4 rotate-45 border-b-2 border-l-2 border-gray-200 bg-white"
-                  style={{
-                    top: "calc(50% - 8px)",
-                    left: "-10px",
-                  }}
-                ></div>
+            <div className="flex flex-col items-center gap-4 px-2">
+              <div className="text-6xl">🐱</div>
+              <div className="text-center rounded-2xl border-2 border-gray-200 p-4 bg-blue-50">
+                <p className="text-lg font-medium text-gray-700">{question}</p>
               </div>
             </div>
 
@@ -735,6 +763,7 @@ const LessonComplete = ({
   const isPractice = "practice" in router.query;
 
   const increaseXp = useBoundStore((x) => x.increaseXp);
+  const earnCoins = useBoundStore((x) => x.earnCoins);
   const addToday = useBoundStore((x) => x.addToday);
   const increaseLingots = useBoundStore((x) => x.increaseLingots);
   const increaseLessonsCompleted = useBoundStore(
@@ -744,13 +773,13 @@ const LessonComplete = ({
     <div className="flex min-h-screen flex-col gap-5 px-4 py-5 sm:px-0 sm:py-0">
       <div className="flex grow flex-col items-center justify-center gap-8 font-bold">
         <h1 className="text-center text-3xl text-yellow-400">
-          Lesson Complete!
+          Great Reading Practice!
         </h1>
         <div className="flex flex-wrap justify-center gap-5">
           <div className="min-w-[110px] rounded-xl border-2 border-yellow-400 bg-yellow-400">
-            <h2 className="py-1 text-center text-white">Total XP</h2>
+            <h2 className="py-1 text-center text-white">Coins Earned</h2>
             <div className="flex justify-center rounded-xl bg-white py-4 text-yellow-400">
-              {correctAnswerCount}
+              🪙 {isPractice ? 20 : 15}
             </div>
           </div>
           <div className="min-w-[110px] rounded-xl border-2 border-blue-400 bg-blue-400">
@@ -760,7 +789,7 @@ const LessonComplete = ({
             </div>
           </div>
           <div className="min-w-[110px] rounded-xl border-2 border-green-400 bg-green-400">
-            <h2 className="py-1 text-center text-white">Amazing</h2>
+            <h2 className="py-1 text-center text-white">Accuracy</h2>
             <div className="flex justify-center rounded-xl bg-white py-4 text-green-400">
               {Math.round(
                 (correctAnswerCount /
@@ -787,6 +816,7 @@ const LessonComplete = ({
             href="/learn"
             onClick={() => {
               increaseXp(correctAnswerCount);
+              earnCoins(isPractice ? 20 : 15, isPractice ? "Reading Practice" : "Reading Lesson");
               addToday();
               increaseLingots(isPractice ? 0 : 1);
               if (!isPractice) {

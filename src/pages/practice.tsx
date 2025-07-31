@@ -59,7 +59,10 @@ const Practice: NextPage = () => {
                 className="flex items-center justify-between rounded-xl bg-gray-800 p-6 text-white transition hover:bg-gray-700"
               >
                 <div className="flex flex-col gap-2">
-                  <h4 className="text-lg font-bold">Tic-tac-toe</h4>
+                  <div className="flex items-center gap-3">
+                    <h4 className="text-lg font-bold">Tic-tac-toe</h4>
+                    <span className="text-sm text-yellow-400 font-medium">+15 coins</span>
+                  </div>
                   <p className="text-sm opacity-80">
                     Practice math skills with X&apos;s and O&apos;s
                   </p>
@@ -74,7 +77,10 @@ const Practice: NextPage = () => {
                 className="flex items-center justify-between rounded-xl bg-gray-800 p-6 text-white transition hover:bg-gray-700"
               >
                 <div className="flex flex-col gap-2">
-                  <h4 className="text-lg font-bold">Bingo</h4>
+                  <div className="flex items-center gap-3">
+                    <h4 className="text-lg font-bold">Bingo</h4>
+                    <span className="text-sm text-yellow-400 font-medium">+15 coins</span>
+                  </div>
                   <p className="text-sm opacity-80">
                     Learn reading and matching with Bingo
                   </p>
@@ -89,7 +95,10 @@ const Practice: NextPage = () => {
                 className="flex items-center justify-between rounded-xl bg-gray-800 p-6 text-white transition hover:bg-gray-700"
               >
                 <div className="flex flex-col gap-2">
-                  <h4 className="text-lg font-bold">Chutes & Ladders</h4>
+                  <div className="flex items-center gap-3">
+                    <h4 className="text-lg font-bold">Chutes & Ladders</h4>
+                    <span className="text-sm text-yellow-400 font-medium">+15 coins</span>
+                  </div>
                   <p className="text-sm opacity-80">
                     Build social skills with climbing and sliding
                   </p>
@@ -107,7 +116,10 @@ const Practice: NextPage = () => {
             <div className="space-y-4">
               <div className="flex items-center justify-between rounded-xl bg-gray-800 p-6 text-white">
                 <div className="flex flex-col gap-2">
-                  <h4 className="text-lg font-bold">Mistakes</h4>
+                  <div className="flex items-center gap-3">
+                    <h4 className="text-lg font-bold">Mistakes</h4>
+                    <span className="text-sm text-yellow-400 font-medium">+10 coins</span>
+                  </div>
                   <p className="text-sm opacity-80">
                     Practice the skills you need to improve
                   </p>
@@ -124,7 +136,10 @@ const Practice: NextPage = () => {
 
               <div className="flex items-center justify-between rounded-xl bg-gray-800 p-6 text-white">
                 <div className="flex flex-col gap-2">
-                  <h4 className="text-lg font-bold">Skills</h4>
+                  <div className="flex items-center gap-3">
+                    <h4 className="text-lg font-bold">Skills</h4>
+                    <span className="text-sm text-yellow-400 font-medium">+10 coins</span>
+                  </div>
                   <p className="text-sm opacity-80">
                     Review your math, reading, and social skills
                   </p>

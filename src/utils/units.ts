@@ -24,7 +24,7 @@ export type TileType = Tile["type"];
 export const units: readonly Unit[] = [
   {
     unitNumber: 1,
-    description: "Math Adventures with Penny the Painter",
+    description: "Math Adventures with Penny the Painter.",
     backgroundColor: "bg-[#ff6b6b]",
     textColor: "text-[#ff6b6b]",
     borderColor: "border-[#e55555]",

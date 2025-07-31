@@ -294,7 +294,10 @@ export const BingoGame: React.FC<BingoGameProps> = ({
   useEffect(() => {
     if (gameState === "won") {
       try {
-        const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+        const AudioContextClass = window.AudioContext || (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+        const audioContext = AudioContextClass ? new AudioContextClass() : null;
+        
+        if (!audioContext) return;
         
         // Create a triumphant "dun-dun-dun-DUN!" fanfare
         const playFanfareTone = (frequency: number, startTime: number, duration: number, volume: number) => {
@@ -456,7 +459,10 @@ export const BingoGame: React.FC<BingoGameProps> = ({
     if (isCorrect) {
       // Play joyful success sound effect
       try {
-        const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+        const AudioContextClass = window.AudioContext || (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+        const audioContext = AudioContextClass ? new AudioContextClass() : null;
+        
+        if (!audioContext) return;
         
         // Create a cheerful "ta-da!" sound with multiple tones
         const playTone = (frequency: number, startTime: number, duration: number, volume: number) => {

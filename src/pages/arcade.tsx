@@ -48,7 +48,6 @@ const ArcadeHeader = () => {
 };
 
 const ArcadeGames = () => {
-  const coins = useBoundStore((x) => x.coins);
   const spendCoins = useBoundStore((x) => x.spendCoins);
   const canAfford = useBoundStore((x) => x.canAfford);
   const [playingGame, setPlayingGame] = useState<string | null>(null);

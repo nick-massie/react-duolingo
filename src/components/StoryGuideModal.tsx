@@ -36,21 +36,6 @@ const PaintBrushIcon = () => (
   </svg>
 );
 
-const PaintPaletteIcon = () => (
-  <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-    <ellipse cx="30" cy="30" rx="25" ry="20" fill="#f8f8f8" stroke="#ff6b6b" strokeWidth="3" />
-    <circle cx="20" cy="20" r="5" fill="#FF6B6B" />
-    <circle cx="40" cy="20" r="5" fill="#4ECDC4" />
-    <circle cx="20" cy="35" r="5" fill="#FFD700" />
-    <circle cx="40" cy="35" r="5" fill="#BB8FCE" />
-    <path
-      d="M45 30C45 30 48 30 48 33C48 36 45 36 45 36"
-      stroke="#8B4513"
-      strokeWidth="3"
-      strokeLinecap="round"
-    />
-  </svg>
-);
 
 export const StoryGuideModal: React.FC<StoryGuideModalProps> = ({
   isOpen,

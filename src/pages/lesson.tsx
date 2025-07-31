@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
 import {
@@ -15,14 +14,13 @@ import {
   LessonTopBarHeart,
   WomanSvg,
 } from "~/components/Svgs";
-import womanPng from "../../public/woman.png";
 import { useBoundStore } from "~/hooks/useBoundStore";
 import { useRouter } from "next/router";
 import { TicTacToeGame } from "~/components/TicTacToeGame";
 import { BingoGame } from "~/components/BingoGame";
 
 const lessonProblem1 = {
-  type: "SELECT_1_OF_3",
+  type: "SELECT_1_OF_3" as const,
   question: `Which picture shows an apple?`,
   answers: [
     { icon: <AppleSvg />, name: "apple" },
@@ -30,17 +28,17 @@ const lessonProblem1 = {
     { icon: <WomanSvg />, name: "woman" },
   ],
   correctAnswer: 0,
-} as const;
+};
 
 const lessonProblem2 = {
-  type: "WRITE_IN_ENGLISH",
+  type: "WRITE_IN_ENGLISH" as const,
   question: "Make the word for this picture:",
   answerTiles: ["c", "a", "t", "d", "o", "g"],
   correctAnswer: [0, 1, 2],
-} as const;
+};
 
 const lessonProblem3 = {
-  type: "SELECT_1_OF_3",
+  type: "SELECT_1_OF_3" as const,
   question: `Which word matches this picture?`,
   pictureDisplay: "🐕",
   answers: [
@@ -49,10 +47,10 @@ const lessonProblem3 = {
     { icon: null, name: "bird" },
   ],
   correctAnswer: 1,
-} as const;
+};
 
 const lessonProblem4 = {
-  type: "SELECT_1_OF_3",
+  type: "SELECT_1_OF_3" as const,
   question: `Which word starts with the letter "B"?`,
   letterDisplay: "B",
   answers: [
@@ -61,9 +59,27 @@ const lessonProblem4 = {
     { icon: null, name: "dog" },
   ],
   correctAnswer: 0,
-} as const;
+};
 
-const lessonProblems = [lessonProblem1, lessonProblem2, lessonProblem3, lessonProblem4];
+type SelectProblem = {
+  type: "SELECT_1_OF_3";
+  question: string;
+  answers: Array<{ icon: React.JSX.Element | null; name: string }>;
+  correctAnswer: number;
+  pictureDisplay?: string;
+  letterDisplay?: string;
+};
+
+type WriteProblem = {
+  type: "WRITE_IN_ENGLISH";
+  question: string;
+  answerTiles: string[];
+  correctAnswer: number[];
+};
+
+type LessonProblem = SelectProblem | WriteProblem;
+
+const lessonProblems: LessonProblem[] = [lessonProblem1, lessonProblem2, lessonProblem3, lessonProblem4];
 
 const numbersEqual = (a: readonly number[], b: readonly number[]): boolean => {
   return a.length === b.length && a.every((_, i) => a[i] === b[i]);
@@ -103,7 +119,6 @@ const Lesson: NextPage = () => {
   const [isStartingLesson, setIsStartingLesson] = useState(true);
 
   const increaseXp = useBoundStore((x) => x.increaseXp);
-  const earnCoins = useBoundStore((x) => x.earnCoins);
   const increaseLessonsCompleted = useBoundStore((x) => x.increaseLessonsCompleted);
 
   // Check if this is a game lesson
@@ -198,12 +213,12 @@ const Lesson: NextPage = () => {
         yourResponse:
           problem.type === "SELECT_1_OF_3"
             ? problem.answers[selectedAnswer ?? 0]?.name ?? ""
-            : selectedAnswers.map((i) => problem.answerTiles[i]).join(" "),
+            : selectedAnswers.map((i) => problem.answerTiles[i] ?? "").join(" "),
         correctResponse:
           problem.type === "SELECT_1_OF_3"
-            ? problem.answers[problem.correctAnswer].name
+            ? problem.answers[problem.correctAnswer]?.name ?? ""
             : problem.correctAnswer
-                .map((i) => problem.answerTiles[i])
+                .map((i) => problem.answerTiles[i] ?? "")
                 .join(" "),
       },
     ]);
@@ -537,7 +552,7 @@ const ProblemSelect1Of3 = ({
   onSkip,
   hearts,
 }: {
-  problem: typeof lessonProblem1;
+  problem: SelectProblem;
   correctAnswerCount: number;
   totalCorrectAnswersNeeded: number;
   selectedAnswer: number | null;
@@ -606,7 +621,7 @@ const ProblemSelect1Of3 = ({
       </div>
 
       <CheckAnswer
-        correctAnswer={answers[correctAnswer].name}
+        correctAnswer={answers[correctAnswer]?.name ?? ""}
         correctAnswerShown={correctAnswerShown}
         isAnswerCorrect={isAnswerCorrect}
         isAnswerSelected={selectedAnswer !== null}
@@ -638,7 +653,7 @@ const ProblemWriteInEnglish = ({
   onSkip,
   hearts,
 }: {
-  problem: typeof lessonProblem2;
+  problem: WriteProblem;
   correctAnswerCount: number;
   totalCorrectAnswersNeeded: number;
   selectedAnswers: number[];

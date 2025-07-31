@@ -4,7 +4,6 @@ import { LeftBar } from "~/components/LeftBar";
 import { TopBar } from "~/components/TopBar";
 import { useBoundStore } from "~/hooks/useBoundStore";
 import { units } from "~/utils/units";
-import { useState } from "react";
 
 const Progress: NextPage = () => {
   return (
@@ -37,8 +36,8 @@ const MyProgressHeader = () => {
   return (
     <section className="text-center">
       <div className="mb-4 text-8xl">🌟</div>
-      <h1 className="mb-2 text-4xl font-bold text-gray-800">Look How Much You've Learned!</h1>
-      <p className="mb-8 text-xl text-gray-600">You're doing amazing, {name}! 🎉</p>
+      <h1 className="mb-2 text-4xl font-bold text-gray-800">Look How Much You&apos;ve Learned!</h1>
+      <p className="mb-8 text-xl text-gray-600">You&apos;re doing amazing, {name}! 🎉</p>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="rounded-3xl bg-gradient-to-b from-green-100 to-green-200 p-6 text-center shadow-lg">
@@ -309,7 +308,6 @@ const SkillBadges = () => {
 const FunStats = () => {
   const lessonsCompleted = useBoundStore((x) => x.lessonsCompleted);
   const streak = useBoundStore((x) => x.streak);
-  const coins = useBoundStore((x) => x.coins);
 
   const funFacts = [
     {

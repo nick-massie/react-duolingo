@@ -68,9 +68,9 @@ const PennyCharacter = ({ animated: _animated = false, correctAnswers = 0 }: { a
   // Choose image based on progress
   const getPennyImage = () => {
     if (correctAnswers >= 2) {
-      return "/Happy Painter - Intermediate.png"; // "You can do it!" - feeling better
+      return "https://images.pexels.com/photos/1148998/pexels-photo-1148998.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop"; // Happy child painting
     }
-    return "/penny the painter.webp"; // Default sad/worried Penny
+    return "https://images.pexels.com/photos/1148998/pexels-photo-1148998.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop"; // Default painting image
   };
 
   return (
@@ -94,9 +94,9 @@ const PennyStoryPanel = ({ gameState, correctAnswers }: { gameState: GameState; 
   // Choose image based on progress  
   const getPennyImage = () => {
     if (correctAnswers >= 2) {
-      return "/Happy Painter - Intermediate.png"; // "You can do it!" - feeling better
+      return "https://images.pexels.com/photos/1148998/pexels-photo-1148998.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop"; // Happy child painting
     }
-    return "/penny the painter.webp"; // Default sad/worried Penny
+    return "https://images.pexels.com/photos/1148998/pexels-photo-1148998.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop"; // Default painting image
   };
 
   const getStoryContent = () => {
@@ -573,23 +573,10 @@ export const BingoGame: React.FC<BingoGameProps> = ({
               {/* Animated Penny Video */}
               <div className="mb-6 flex justify-center">
                 <div className="relative">
-                  <video
-                    autoPlay
-                    playsInline
-                    className="h-72 w-72 object-cover shadow-lg rounded-xl"
-                    onTimeUpdate={(e) => {
-                      const video = e.target as HTMLVideoElement;
-                      if (video.currentTime >= 7) { // Stop at 6 seconds instead of full 8 seconds
-                        video.pause();
-                      }
-                    }}
-                  >
-                    <source src="/Penny_s_Color_Finding_Animation_Request (1).mp4" type="video/mp4" />
-                    {/* Fallback for browsers that don't support video */}
-                    <div className="h-72 w-72 bg-pink-400 p-8 flex items-center justify-center shadow-lg rounded-xl">
-                      <span className="text-6xl">🎨</span>
-                    </div>
-                  </video>
+                  {/* Fallback image instead of video for deployment */}
+                  <div className="h-72 w-72 bg-gradient-to-br from-pink-400 to-purple-400 p-8 flex items-center justify-center shadow-lg rounded-xl">
+                    <span className="text-8xl">🎨</span>
+                  </div>
                 </div>
               </div>
               
@@ -653,11 +640,9 @@ export const BingoGame: React.FC<BingoGameProps> = ({
           <div className="text-center">
               {/* Happy Penny Final Image */}
               <div className="mb-6 flex justify-center">
-                <img
-                  src="/Happy Painter - Final.png"
-                  alt="Happy Penny - You did it!"
-                  className="h-48 w-48 object-cover shadow-lg rounded-xl"
-                />
+                <div className="h-48 w-48 bg-gradient-to-br from-green-400 to-blue-400 p-8 flex items-center justify-center shadow-lg rounded-xl">
+                  <span className="text-6xl">🎉</span>
+                </div>
               </div>
               <h1 className="text-4xl font-bold text-green-600">
                 Amazing Work!
@@ -687,11 +672,9 @@ export const BingoGame: React.FC<BingoGameProps> = ({
         <div className="text-center">
           {/* Happy Penny Final Image */}
           <div className="mb-6 flex justify-center">
-            <img
-              src="/Happy Painter - Final.png"
-              alt="Happy Penny - You did it!"
-              className="h-48 w-48 object-cover shadow-lg rounded-xl"
-            />
+            <div className="h-48 w-48 bg-gradient-to-br from-green-400 to-blue-400 p-8 flex items-center justify-center shadow-lg rounded-xl">
+              <span className="text-6xl">🎉</span>
+            </div>
           </div>
           <h1 className="text-4xl font-bold text-green-600">
             Bingo! You Did It!
@@ -1152,4 +1135,4 @@ export const BingoGame: React.FC<BingoGameProps> = ({
       `}</style>
     </div>
   );
-}; 
+};

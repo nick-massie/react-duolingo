@@ -10,15 +10,16 @@ const config = {
   images: {
     unoptimized: true,
   },
-  // Remove problematic experimental settings for deployment
   eslint: {
-    // Don't fail build on ESLint errors during deployment
     ignoreDuringBuilds: true,
   },
   typescript: {
-    // Don't fail build on TypeScript errors during deployment
     ignoreBuildErrors: true,
   },
+  // Ensure all pages are statically generated
+  output: 'export',
+  trailingSlash: true,
+  distDir: 'dist',
 };
 
 export default config;

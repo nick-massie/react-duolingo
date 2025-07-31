@@ -3,17 +3,15 @@ import Link from "next/link";
 import { GlobeSvg } from "~/components/Svgs";
 import React from "react";
 import { useLoginScreen, LoginScreen } from "~/components/LoginScreen";
-import _bgSnow from "../../public/bg-snow.svg";
-import type { StaticImageData } from "next/image";
-
-const bgSnow = _bgSnow as StaticImageData;
 
 const Home: NextPage = () => {
   const { loginScreenState, setLoginScreenState } = useLoginScreen();
   return (
     <main
       className="flex min-h-screen flex-col items-center justify-center bg-[#235390] text-white"
-      style={{ backgroundImage: `url(${bgSnow.src})` }}
+      style={{ 
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` 
+      }}
     >
       {/* Header */}
       <header className="fixed left-0 right-0 top-0 flex min-h-[70px] items-center bg-[#235390] px-72 font-bold text-white">

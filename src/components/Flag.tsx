@@ -1,8 +1,5 @@
-import type { StaticImageData } from "next/image";
-import _flagsSvg from "../../public/flags.svg";
 import type { Language } from "~/utils/languages";
 
-const flagsSvg = _flagsSvg as StaticImageData;
 
 export const Flag = ({
   language,
@@ -14,11 +11,10 @@ export const Flag = ({
   const height = width * (19.3171 / 24);
   return (
     <svg viewBox={language.viewBox} style={{ height, width }}>
-      <image
-        height={flagsSvg.height}
-        href={flagsSvg.src}
-        width={flagsSvg.width}
-      ></image>
+      <rect width="100%" height="100%" fill="#4F46E5" />
+      <text x="50%" y="50%" textAnchor="middle" dy="0.3em" fontSize="12" fill="white">
+        {language.code.toUpperCase()}
+      </text>
     </svg>
   );
 };

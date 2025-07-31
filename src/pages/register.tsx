@@ -4,17 +4,15 @@ import languages from "~/utils/languages";
 import { LanguageHeader } from "~/components/LanguageHeader";
 import { useBoundStore } from "~/hooks/useBoundStore";
 import { Flag } from "~/components/Flag";
-import _bgSnow from "../../public/bg-snow.svg";
-import type { StaticImageData } from "next/image";
-
-const bgSnow = _bgSnow as StaticImageData;
 
 const Register: NextPage = () => {
   const setLanguage = useBoundStore((x) => x.setLanguage);
   return (
     <main
       className="flex min-h-screen flex-col items-center bg-[#235390] text-white"
-      style={{ backgroundImage: `url(${bgSnow.src})` }}
+      style={{ 
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` 
+      }}
     >
       <LanguageHeader />
       <div className="container flex grow flex-col items-center justify-center gap-20 px-4 py-16">

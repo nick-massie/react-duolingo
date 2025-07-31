@@ -279,7 +279,7 @@ const TileTooltip = ({
         >
           {description}
         </div>
-        {tile.type !== "treasure" && "gameType" in tile && "difficulty" in tile && (
+        {tile.type !== "treasure" && tile.gameType !== undefined && tile.difficulty !== undefined && (
           <div className="flex items-center gap-2 text-sm opacity-80">
             <span className="rounded bg-white/20 px-2 py-1 font-medium">
               {tile.gameType?.replace("-", " ")}
@@ -292,7 +292,7 @@ const TileTooltip = ({
         {status === "ACTIVE" ? (
           <Link
             href={(() => {
-              if (tile.type !== "treasure" && "gameType" in tile) {
+              if (tile.type !== "treasure" && tile.gameType !== undefined) {
                 switch (tile.gameType) {
                   case "tic-tac-toe":
                     return `/lesson?game=tic-tac-toe&unit=${unitNumber}&level=1`;
@@ -323,7 +323,7 @@ const TileTooltip = ({
         ) : (
           <Link
             href={(() => {
-              if (tile.type !== "treasure" && "gameType" in tile) {
+              if (tile.type !== "treasure" && tile.gameType !== undefined) {
                 switch (tile.gameType) {
                   case "tic-tac-toe":
                     return `/lesson?game=tic-tac-toe&unit=${unitNumber}&level=1`;

@@ -13,6 +13,10 @@ const config = {
     unoptimized: true,
   },
   distDir: 'out',
+  // Disable server-side features for static export
+  experimental: {
+    esmExternals: false,
+  },
 };
 
 export default config;

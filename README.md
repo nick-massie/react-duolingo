@@ -1,4 +1,4 @@
-# React Duolingo
+# Adapted
 
 https://react-duolingo-clone.vercel.app/ 
 

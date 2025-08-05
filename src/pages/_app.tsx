@@ -7,13 +7,13 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <title>Adapted</title>
+        <title>AdaptED</title>
         <meta
           name="description"
-          content="Duolingo web app clone written with React"
+          content="AdaptED - A web app written with React, TypeScript, Next.js, TailwindCSS, and Zustand."
         />
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="theme-color" content="#0A0" />
+        <link rel="icon" href="/3665909.png" />
+        <meta name="theme-color" content="#1E90FF" />
         <link rel="manifest" href="/app.webmanifest" />
       </Head>
       <Component {...pageProps} />
